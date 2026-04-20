@@ -1,5 +1,8 @@
+import java.util.Random;
+
 public class TicTacToe {
     private char[][] board;
+    private char currentPlayerSymbol;
 
     public TicTacToe() {
         board = new char[3][3];
@@ -14,7 +17,21 @@ public class TicTacToe {
         }
     }
 
+    public void performToss() {
+        Random rand = new Random();
+        int result = rand.nextInt(2); // 0 or 1
+        
+        if (result == 0) {
+            currentPlayerSymbol = 'X';
+            System.out.println("Toss Won: Player 1 starts with symbol X");
+        } else {
+            currentPlayerSymbol = 'O';
+            System.out.println("Toss Won: Player 2 starts with symbol O");
+        }
+    }
+
     public void displayBoard() {
+        System.out.println("Current Board:");
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 System.out.print(board[i][j] + " ");
@@ -25,6 +42,7 @@ public class TicTacToe {
 
     public static void main(String[] args) {
         TicTacToe game = new TicTacToe();
+        game.performToss();
         game.displayBoard();
     }
 }
