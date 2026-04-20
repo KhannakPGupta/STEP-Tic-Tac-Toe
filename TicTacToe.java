@@ -1,11 +1,14 @@
 import java.util.Random;
+import java.util.Scanner;
 
 public class TicTacToe {
     private char[][] board;
     private char currentPlayerSymbol;
+    private Scanner scanner;
 
     public TicTacToe() {
         board = new char[3][3];
+        scanner = new Scanner(System.in);
         initializeBoard();
     }
 
@@ -30,6 +33,11 @@ public class TicTacToe {
         }
     }
 
+    public int getPlayerInput() {
+        System.out.print("Enter slot number (1-9): ");
+        return scanner.nextInt();
+    }
+
     public void displayBoard() {
         System.out.println("Current Board:");
         for (int i = 0; i < 3; i++) {
@@ -44,5 +52,8 @@ public class TicTacToe {
         TicTacToe game = new TicTacToe();
         game.performToss();
         game.displayBoard();
+        
+        int slot = game.getPlayerInput();
+        System.out.println("You selected slot: " + slot);
     }
 }
