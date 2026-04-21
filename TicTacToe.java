@@ -59,13 +59,41 @@ public class TicTacToe {
         return false;
     }
 
+    public int[] convertSlotToIndices(int slot) {
+        if (slot < 1 || slot > 9) {
+            // Internally handled for computer move, but usually throw exception for invalid slot
+            throw new IllegalArgumentException("Invalid slot. Slot must be between 1 and 9.");
+        }
+        int row = (slot - 1) / 3;
+        int col = (slot - 1) % 3;
+        return new int[]{row, col};
+    }
+
+    public void makeComputerMove(char symbol) {
+        Random rand = new Random();
+        boolean validMove = false;
+        while (!validMove) {
+            int slot = rand.nextInt(9) + 1; // 1 to 9
+            int[] indices = convertSlotToIndices(slot);
+            if (isValidMove(indices[0], indices[1])) {
+                placeMove(indices[0], indices[1], symbol);
+                System.out.println("Computer placed '" + symbol + "' at slot " + slot);
+                validMove = true;
+            }
+        }
+    }
+
     public static void main(String[] args) {
         TicTacToe game = new TicTacToe();
         game.performToss();
         game.displayBoard();
+        // Testing UC4
+        System.out.println("Testing UC4: Convert Slot 5");
+        int[] indices = game.convertSlotToIndices(5);
+        System.out.println("Slot 5 -> Row: " + indices[0] + ", Col: " + indices[1]);
         
         // Testing UC5
-        System.out.println("Testing UC5: Validate Move");
+        System.out.println("\nTesting UC5: Validate Move");
         System.out.println("Move (1, 1) valid? " + game.isValidMove(1, 1)); // Expected true
         System.out.println("Move (3, 3) valid? " + game.isValidMove(3, 3)); // Expected false (out of bounds)
         
@@ -73,6 +101,11 @@ public class TicTacToe {
         System.out.println("\nTesting UC6: Place Move");
         boolean isPlaced = game.placeMove(1, 1, 'X');
         System.out.println("Moved placed at (1,1) with 'X': " + isPlaced);
+        game.displayBoard();
+        
+        // Testing UC7
+        System.out.println("\nTesting UC7: Computer Move");
+        game.makeComputerMove('O');
         game.displayBoard();
     }
 }
