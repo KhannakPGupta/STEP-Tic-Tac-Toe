@@ -40,9 +40,24 @@ public class TicTacToe {
         }
     }
 
+    public boolean isValidMove(int row, int col) {
+        if (row < 0 || row > 2 || col < 0 || col > 2) {
+            return false;
+        }
+        if (board[row][col] != '-') {
+            return false;
+        }
+        return true;
+    }
+
     public static void main(String[] args) {
         TicTacToe game = new TicTacToe();
         game.performToss();
         game.displayBoard();
+        
+        // Testing UC5
+        System.out.println("Testing UC5: Validate Move");
+        System.out.println("Move (1, 1) valid? " + game.isValidMove(1, 1)); // Expected true
+        System.out.println("Move (3, 3) valid? " + game.isValidMove(3, 3)); // Expected false (out of bounds)
     }
 }
