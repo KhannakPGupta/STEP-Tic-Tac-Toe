@@ -40,9 +40,23 @@ public class TicTacToe {
         }
     }
 
+    public int[] convertSlotToIndices(int slot) {
+        if (slot < 1 || slot > 9) {
+            throw new IllegalArgumentException("Invalid slot. Slot must be between 1 and 9.");
+        }
+        int row = (slot - 1) / 3;
+        int col = (slot - 1) % 3;
+        return new int[]{row, col};
+    }
+
     public static void main(String[] args) {
         TicTacToe game = new TicTacToe();
         game.performToss();
         game.displayBoard();
+
+        // Testing UC4
+        System.out.println("Testing UC4: Convert Slot 5");
+        int[] indices = game.convertSlotToIndices(5);
+        System.out.println("Slot 5 -> Row: " + indices[0] + ", Col: " + indices[1]);
     }
 }
