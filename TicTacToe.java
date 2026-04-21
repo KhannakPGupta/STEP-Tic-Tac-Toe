@@ -50,6 +50,15 @@ public class TicTacToe {
         return true;
     }
 
+    public boolean placeMove(int row, int col, char symbol) {
+        if (isValidMove(row, col)) {
+            board[row][col] = symbol;
+            return true;
+        }
+        System.out.println("Invalid move. Try again.");
+        return false;
+    }
+
     public static void main(String[] args) {
         TicTacToe game = new TicTacToe();
         game.performToss();
@@ -59,5 +68,11 @@ public class TicTacToe {
         System.out.println("Testing UC5: Validate Move");
         System.out.println("Move (1, 1) valid? " + game.isValidMove(1, 1)); // Expected true
         System.out.println("Move (3, 3) valid? " + game.isValidMove(3, 3)); // Expected false (out of bounds)
+        
+        // Testing UC6
+        System.out.println("\nTesting UC6: Place Move");
+        boolean isPlaced = game.placeMove(1, 1, 'X');
+        System.out.println("Moved placed at (1,1) with 'X': " + isPlaced);
+        game.displayBoard();
     }
 }
